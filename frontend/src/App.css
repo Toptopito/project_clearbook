@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 20vmin;
   pointer-events: none;
 }
 
@@ -15,13 +15,54 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 40vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 20px;
+}
+
+.App-main {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hello-world-container {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.api-response {
+  background-color: #f0f8ff;
+  border-left: 4px solid #4285f4;
+  padding: 15px;
+  margin-top: 15px;
+  text-align: left;
+}
+
+.message {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.project, .version {
+  color: #555;
+}
+
+.error {
+  color: #d32f2f;
+  background-color: #ffebee;
+  padding: 10px;
+  border-radius: 4px;
 }
 
 .App-link {

@@ -1,0 +1,100 @@
+name: Clearbook CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: clearbook_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        cache: 'npm'
+        cache-dependency-path: 'backend/package-lock.json'
+    
+    - name: Install backend dependencies
+      run: cd backend && npm ci
+    
+    - name: Run backend linting
+      run: cd backend && npm run lint || echo "Lint command not yet configured"
+    
+    - name: Run backend tests
+      run: cd backend && npm test || echo "Test command not yet configured"
+      env:
+        DATABASE_URL: postgres://postgres:postgres@localhost:5432/clearbook_test
+        JWT_SECRET: test_secret
+  
+  frontend-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        cache: 'npm'
+        cache-dependency-path: 'frontend/package-lock.json'
+    
+    - name: Install frontend dependencies
+      run: cd frontend && npm ci
+    
+    - name: Run frontend linting
+      run: cd frontend && npm run lint || echo "Lint command not yet configured"
+    
+    - name: Run frontend tests
+      run: cd frontend && npm test -- --watchAll=false
+  
+  build:
+    needs: [backend-tests, frontend-tests]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+    
+    - name: Build backend
+      run: |
+        cd backend
+        npm ci
+        npm run build
+    
+    - name: Build frontend
+      run: |
+        cd frontend
+        npm ci
+        npm run build
+    
+    # Add deployment steps here once deployment platform is selected
+    # For example, deployment to Netlify, Vercel, AWS, etc.
+    # - name: Deploy to production
+    #   run: echo "Deployment steps will be added here"

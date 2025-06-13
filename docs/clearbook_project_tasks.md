@@ -28,7 +28,7 @@ This document outlines the step-by-step tasks for developing Clearbook, an appli
    - Create architecture diagram
    - _Validation:_ Tech stack document reviewed and approved
 
-3. 🟡 **Set up development environment**
+3. ✅ **Set up development environment**
    - Create development environment setup guide
    - Set up local development environment
    - Create docker containers for development consistency (if applicable)
@@ -58,7 +58,7 @@ This document outlines the step-by-step tasks for developing Clearbook, an appli
    - Document database schema
    - _Test:_ Review data model for completeness and normalization
 
-8. ⬜ **Set up project management tools**
+8. ✅ **Set up project management tools**
    - Configure project board (e.g., Trello, GitHub Projects)
    - Set up communication channels
    - _Validation:_ Team can access and use project management tools
