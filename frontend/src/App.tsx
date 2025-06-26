@@ -1,7 +1,7 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-import HelloWorld from './components/HelloWorld';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         </p>
       </header>
       <main className="App-main">
-        <HelloWorld />
+        <Outlet />
       </main>
     </div>
   );

@@ -3,6 +3,11 @@ import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express';
+import authRoutes from './routes/auth.routes';
+import labResultRoutes from './routes/labResult.routes';
+import { notFoundHandler, errorHandler } from './middleware/error';
+import swaggerSpec from './config/swagger';
 
 // Load environment variables
 dotenv.config();
@@ -31,6 +36,25 @@ app.get('/api/hello', (req: Request, res: Response) => {
     version: '0.1.0'
   });
 });
+
+// Mount auth routes
+app.use('/api/auth', authRoutes);
+
+// Mount lab result routes
+app.use('/api/lab-results', labResultRoutes);
+
+// API Documentation with Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Endpoint to get the OpenAPI spec in JSON format
+app.get('/api-docs.json', (req: Request, res: Response) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
+
+// Error handling middleware (must be after all other middleware and routes)
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 // Start server
 app.listen(PORT, () => {
