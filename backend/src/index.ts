@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import authRoutes from './routes/auth.routes';
 import labResultRoutes from './routes/labResult.routes';
+import profileRoutes from './routes/profile.routes';
 import { notFoundHandler, errorHandler } from './middleware/error';
 import swaggerSpec from './config/swagger';
 
@@ -42,6 +43,9 @@ app.use('/api/auth', authRoutes);
 
 // Mount lab result routes
 app.use('/api/lab-results', labResultRoutes);
+
+// Mount profile routes
+app.use('/api/profile', profileRoutes);
 
 // API Documentation with Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
