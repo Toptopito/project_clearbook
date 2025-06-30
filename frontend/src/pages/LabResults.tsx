@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import Button from '../components/ui/Button';
+import Card from '../components/ui/Card';
+import Input from '../components/ui/Input';
 import labResultService, { LabResult } from '../services/labResultService';
 
 const categories = ['All', 'Blood', 'Urine', 'Imaging', 'Other'];
@@ -106,8 +108,8 @@ const LabResults: React.FC = () => {
       {/* Actions bar */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
         <div className="mb-4 sm:mb-0">
-          <h1 className="text-2xl font-bold text-gray-900">Lab Results</h1>
-          <p className="text-sm text-gray-500 mt-1">Manage and review your lab test records</p>
+          <h1 className="text-2xl font-bold font-poppins" style={{ color: 'var(--primary-dark)' }}>Lab Results</h1>
+          <p className="text-sm font-inter mt-1" style={{ color: 'var(--text-muted)' }}>Manage and review your lab test records</p>
         </div>
         <div>
           <Button
@@ -124,161 +126,183 @@ const LabResults: React.FC = () => {
         </div>
       </div>
       
-      {/* Filters */}
-      <div className="bg-white rounded-lg shadow-sm p-5 mb-6">
-        <div className="flex flex-col md:flex-row gap-4">
-          {/* Search input */}
-          <div className="flex-grow">
-            <label htmlFor="search" className="sr-only">Search</label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      {/* Search and filter section */}
+      <Card className="mb-6" variant="outlined" bodyClassName="p-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          {/* Search box */}
+          <div>
+            <Input
+              type="text"
+              placeholder="Search test name..."
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+              leftIcon={
+                <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
                 </svg>
-              </div>
-              <input
-                id="search"
-                name="search"
-                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Search test name"
-                type="search"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
+              }
+            />
           </div>
-          
-          {/* Category filter */}
-          <div className="w-full md:w-auto">
-            <label htmlFor="category" className="sr-only">Category</label>
+          <div>
+            <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Category</label>
             <select
-              id="category"
-              name="category"
-              className="block w-full py-2 pl-3 pr-10 text-base border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-xs md:text-sm"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
-              {categories.map((category) => (
+              {categories.map(category => (
                 <option key={category} value={category}>{category}</option>
               ))}
             </select>
           </div>
-          
-          {/* Lab filter */}
-          <div className="w-full md:w-auto">
-            <label htmlFor="lab" className="sr-only">Lab</label>
+          <div>
+            <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Lab</label>
             <select
-              id="lab"
-              name="lab"
-              className="block w-full py-2 pl-3 pr-10 text-base border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-xs md:text-sm"
               value={selectedLab}
               onChange={(e) => setSelectedLab(e.target.value)}
             >
-              {labs.map((lab) => (
+              {labs.map(lab => (
                 <option key={lab} value={lab}>{lab}</option>
               ))}
             </select>
           </div>
-          
-          {/* Show abnormal only */}
-          <div className="w-full md:w-auto flex items-center">
+          <div className="flex items-center">
             <input
               id="abnormal-only"
               name="abnormal-only"
               type="checkbox"
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
               checked={showAbnormalOnly}
               onChange={(e) => setShowAbnormalOnly(e.target.checked)}
             />
-            <label htmlFor="abnormal-only" className="ml-2 block text-sm text-gray-900">
-              Abnormal Only
+            <label htmlFor="abnormal-only" className="ml-2 block text-xs md:text-sm text-gray-700">
+              Show abnormal results only
             </label>
           </div>
         </div>
-      </div>
+        <div className="flex justify-between items-start mt-4">
+          <span className="text-xs md:text-sm text-gray-500">{filteredResults.length} results found</span>
+        </div>
+      </Card>
       
-      {/* Results table */}
-      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-        <div className="py-4">
+      {/* Results Table/List */}
+      <div className="bg-white shadow-sm rounded-lg overflow-hidden">
+        <div className="relative">
           {loading ? (
-            <div className="flex justify-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+            <div className="flex flex-col items-center justify-center py-12">
+              <svg className="animate-spin h-8 w-8 text-blue-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <p className="text-gray-500">Loading lab results...</p>
             </div>
           ) : error ? (
-            <div className="text-center py-12">
-              <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto h-12 w-12 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="flex flex-col items-center justify-center p-12 text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-red-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
-              <h3 className="mt-2 text-sm font-medium text-gray-900">Error</h3>
-              <p className="mt-1 text-sm text-gray-500">{error}</p>
-              <div className="mt-6">
-                <Button 
-                  variant="primary"
-                  onClick={() => window.location.reload()}
-                >
-                  Retry
-                </Button>
-              </div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Failed to load results</h3>
+              <p className="text-gray-500 mb-4">{error}</p>
+              <Button onClick={() => window.location.reload()}>Try Again</Button>
             </div>
           ) : filteredResults.length > 0 ? (
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th 
-                      scope="col" 
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-                      onClick={() => handleSort('name')}
-                    >
-                      <span className="flex items-center">Test Name {renderSortIcon('name')}</span>
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                    <th 
-                      scope="col" 
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-                      onClick={() => handleSort('date')}
-                    >
-                      <span className="flex items-center">Date {renderSortIcon('date')}</span>
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lab</th>
-                    <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {filteredResults.map(result => (
-                    <tr key={result.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900">{result.test_name}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-500">{result.category}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-500">{result.test_date}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${result.is_abnormal ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}>
-                          {result.is_abnormal ? 'Abnormal' : 'Normal'}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {result.lab_name}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <Button
-                          as={Link}
-                          to={`/lab-results/${result.id}`}
-                          variant="text"
-                          className="text-blue-600 hover:text-blue-900"
-                        >
-                          View
-                        </Button>
-                      </td>
+            <div>
+              {/* Table view for desktop */}
+              <div className="hidden md:block overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead style={{ backgroundColor: 'var(--background-light)' }}>
+                    <tr>
+                      <th scope="col" className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider cursor-pointer font-inter" style={{ color: 'var(--text-muted)' }} onClick={() => handleSort('name')}>
+                        Test Name {renderSortIcon('name')}
+                      </th>
+                      <th scope="col" className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider font-inter" style={{ color: 'var(--text-muted)' }}>
+                        Category
+                      </th>
+                      <th scope="col" className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider cursor-pointer font-inter" style={{ color: 'var(--text-muted)' }} onClick={() => handleSort('date')}>
+                        Date {renderSortIcon('date')}
+                      </th>
+                      <th scope="col" className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider font-inter" style={{ color: 'var(--text-muted)' }}>
+                        Status
+                      </th>
+                      <th scope="col" className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider font-inter" style={{ color: 'var(--text-muted)' }}>
+                        Lab
+                      </th>
+                      <th scope="col" className="relative px-4 py-3">
+                        <span className="sr-only">Actions</span>
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {filteredResults.map(result => (
+                      <tr key={result.id} className="hover:bg-gray-50">
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          <div className="text-sm font-medium text-gray-900">{result.test_name}</div>
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          <div className="text-sm text-gray-500">{result.category}</div>
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          <div className="text-sm text-gray-500">{result.test_date}</div>
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${result.is_abnormal ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}>
+                            {result.is_abnormal ? 'Abnormal' : 'Normal'}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
+                          {result.lab_name}
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
+                          <Button
+                            as={Link}
+                            to={`/lab-results/${result.id}`}
+                            variant="text"
+                            className="text-blue-600 hover:text-blue-900"
+                          >
+                            View
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              
+              {/* Card view for mobile */}
+              <div className="md:hidden divide-y divide-gray-200">
+                {filteredResults.map(result => (
+                  <div key={result.id} className="px-4 py-3 hover:bg-gray-50">
+                    <div className="flex justify-between items-start mb-2">
+                      <div className="text-sm font-medium text-gray-900">{result.test_name}</div>
+                      <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${result.is_abnormal ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}>
+                        {result.is_abnormal ? 'Abnormal' : 'Normal'}
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-1 text-xs text-gray-500 mb-2">
+                      <div>
+                        <span className="font-medium">Category:</span> {result.category}
+                      </div>
+                      <div>
+                        <span className="font-medium">Date:</span> {result.test_date}
+                      </div>
+                      <div>
+                        <span className="font-medium">Lab:</span> {result.lab_name}
+                      </div>
+                    </div>
+                    <div className="flex justify-end">
+                      <Button
+                        as={Link}
+                        to={`/lab-results/${result.id}`}
+                        variant="text"
+                        className="text-xs text-blue-600 hover:text-blue-900"
+                      >
+                        View Details
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           ) : (
             <div className="text-center py-12">

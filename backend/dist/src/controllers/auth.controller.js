@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.logout = exports.getCurrentUser = exports.login = exports.register = void 0;
+exports.resetPassword = exports.logout = exports.getCurrentUser = exports.login = exports.register = void 0;
 const models_1 = require("../models");
 const password_1 = require("../utils/password");
 const jwt_1 = require("../utils/jwt");
@@ -192,9 +192,56 @@ const logout = (req, res) => {
     });
 };
 exports.logout = logout;
+/**
+ * Request password reset
+ * @route POST /api/auth/reset-password
+ */
+const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { email } = req.body;
+        // Validate required fields
+        if (!email) {
+            res.status(400).json({
+                success: false,
+                message: 'Email is required'
+            });
+            return;
+        }
+        // Check if user exists
+        const user = yield models_1.User.findOne({ where: { email } });
+        if (!user) {
+            // For security reasons, don't reveal that the email doesn't exist
+            // Just return success response as if reset email was sent
+            res.status(200).json({
+                success: true,
+                message: 'If your email is registered, you will receive reset instructions'
+            });
+            return;
+        }
+        // In a real implementation, generate a token and send email
+        // For this MVP, just acknowledge the request
+        // Optional: Update user record with reset token and expiry
+        // user.reset_token = generatedToken;
+        // user.reset_token_expires = new Date(Date.now() + 3600000); // 1 hour
+        // await user.save();
+        res.status(200).json({
+            success: true,
+            message: 'If your email is registered, you will receive reset instructions'
+        });
+    }
+    catch (error) {
+        console.error('Password reset error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error during password reset request'
+        });
+    }
+});
+exports.resetPassword = resetPassword;
 exports.default = {
     register: exports.register,
     login: exports.login,
     getCurrentUser: exports.getCurrentUser,
-    logout: exports.logout
+    logout: exports.logout,
+    resetPassword: exports.resetPassword
 };

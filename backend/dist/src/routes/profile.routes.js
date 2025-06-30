@@ -37,14 +37,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const authController = __importStar(require("../controllers/auth.controller"));
+const profileController = __importStar(require("../controllers/profile.controller"));
 const auth_middleware_1 = require("../middlewares/auth.middleware");
 const router = express_1.default.Router();
-// Public routes (no authentication required)
-router.post('/register', authController.register);
-router.post('/login', authController.login);
-router.post('/logout', authController.logout);
-router.post('/reset-password', authController.resetPassword);
-// Protected routes (authentication required)
-router.get('/me', auth_middleware_1.authenticate, authController.getCurrentUser);
+// All profile routes require authentication
+router.use(auth_middleware_1.authenticate);
+// Get current user profile
+router.get('/', profileController.getCurrentProfile);
+// Update user profile
+router.put('/', profileController.updateProfile);
+// Complete onboarding
+router.put('/onboarding', profileController.completeOnboarding);
 exports.default = router;

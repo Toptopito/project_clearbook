@@ -49,12 +49,29 @@ const Button = <E extends React.ElementType = 'button'>({
   ...props
 }: ButtonComponentProps) => {
   const Component = as || 'button';
-  const baseClasses = 'button flex items-center justify-center gap-2 rounded px-4 py-2 font-medium transition-all';
+  const baseClasses = 'button flex items-center justify-center gap-2 rounded-md px-4 py-2 font-medium transition-all font-inter';
+  // Using our theme CSS variables for consistent styling
   const variantClasses = {
-    primary: 'bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800',
-    secondary: 'bg-gray-200 text-gray-800 hover:bg-gray-300 active:bg-gray-400',
-    outline: 'bg-transparent border border-gray-300 text-gray-800 hover:bg-gray-100',
-    text: 'bg-transparent text-blue-600 hover:bg-blue-50 hover:underline px-2',
+    primary: 'text-white hover:bg-opacity-90 active:bg-opacity-100',
+    secondary: 'bg-white border text-gray-800 hover:bg-gray-50 active:bg-gray-100',
+    outline: 'bg-transparent border text-gray-800 hover:bg-gray-50',
+    text: 'bg-transparent hover:bg-opacity-10 hover:underline px-2',
+  };
+  
+  // Apply theme colors based on variant
+  const getButtonStyle = () => {
+    switch(variant) {
+      case 'primary':
+        return { backgroundColor: 'var(--primary)' };
+      case 'secondary':
+        return { borderColor: 'var(--primary)', color: 'var(--primary)' };
+      case 'outline':
+        return { borderColor: 'var(--text)', color: 'var(--text)' };
+      case 'text':
+        return { color: 'var(--primary)' };
+      default:
+        return {};
+    }
   };
 
   const widthClass = fullWidth ? 'w-full' : '';
@@ -73,6 +90,7 @@ const Button = <E extends React.ElementType = 'button'>({
   return (
     <Component
       className={`${baseClasses} ${variantClasses[variant]} ${widthClass} ${disabledClass} ${className}`}
+      style={getButtonStyle()}
       {...(Component === 'button' ? { disabled: disabled || loading } : linkProps)}
       {...props}
     >

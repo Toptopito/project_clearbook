@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is a placeholder for the ClearBook logo -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="200" height="100" viewBox="0 0 200 100">
+  <!-- Blue heart shape -->
+  <path d="M50,20 C30,20 25,40 25,50 C25,70 50,85 50,85 C50,85 75,70 75,50 C75,40 70,20 50,20 Z" fill="#2563EB" />
+  
+  <!-- Green ECG line -->
+  <path d="M25,50 L35,50 L40,30 L45,70 L50,40 L55,60 L60,50 L75,50" fill="none" stroke="#10B981" stroke-width="3" />
+</svg>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClearBook - Web App Theme</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-8">
+        
+        <!-- Header -->
+        <header class="text-center mb-16">
+            <h1 class="font-poppins text-5xl font-bold text-blue-900">ClearBook</h1>
+            <p class="text-xl text-gray-600 mt-2">A theme for a personal health record app in the Philippines.</p>
+        </header>
+
+        <!-- Color Palette -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold font-poppins mb-6 text-blue-900 border-b-2 border-blue-200 pb-2">Color Palette</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 text-white text-center rounded-lg overflow-hidden shadow-lg">
+                <div class="p-8 bg-blue-900">
+                    <p class="font-bold">#1a365d</p>
+                    <p>Primary Dark</p>
+                </div>
+                <div class="p-8 bg-blue-600">
+                    <p class="font-bold">#2563eb</p>
+                    <p>Primary</p>
+                </div>
+                <div class="p-8 bg-teal-500">
+                    <p class="font-bold">#14b8a6</p>
+                    <p>Accent Green</p>
+                </div>
+                <div class="p-8 bg-yellow-400">
+                    <p class="font-bold">#facc15</p>
+                    <p>Accent Yellow</p>
+                </div>
+                <div class="p-8 bg-gray-200 text-gray-800">
+                    <p class="font-bold">#e5e7eb</p>
+                    <p>Background</p>
+                </div>
+                <div class="p-8 bg-gray-800">
+                    <p class="font-bold">#1f2937</p>
+                    <p>Text</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold font-poppins mb-6 text-blue-900 border-b-2 border-blue-200 pb-2">Typography</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-2xl font-poppins font-bold mb-2 text-blue-800">Poppins</h3>
+                    <p class="text-lg mb-4 text-gray-600">Used for headings to give a modern and friendly feel.</p>
+                    <p class="font-poppins text-4xl font-bold">Aa</p>
+                    <p class="font-poppins text-xl mt-2">The quick brown fox jumps over the lazy dog.</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-inter font-bold mb-2 text-blue-800">Inter</h3>
+                    <p class="text-lg mb-4 text-gray-600">Used for body text for its high readability on screens.</p>
+                    <p class="text-4xl font-inter font-bold">Aa</p>
+                    <p class="text-xl mt-2">The quick brown fox jumps over the lazy dog.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logo -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold font-poppins mb-6 text-blue-900 border-b-2 border-blue-200 pb-2">Logo</h2>
+            <div class="flex justify-center">
+                <div class="bg-white p-8 rounded-xl shadow-md flex flex-col items-center justify-center w-full md:w-1/2 lg:w-2/5">
+                    <div class="flex items-center space-x-4">
+                        <svg class="h-16 w-16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 21.35L-1.45-1.32C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.03L12 21.35Z" fill="#2563eb"/>
+                            <path d="M3 12H6L8 18L11 6L13 12H16" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="font-poppins text-4xl font-bold text-blue-900">ClearBook</span>
+                    </div>
+                    <p class="mt-4 text-gray-600">The heartbeat of health and technology.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- UI Mockups with Philippine context imagery -->
+        <section>
+            <h2 class="text-3xl font-bold font-poppins mb-6 text-blue-900 border-b-2 border-blue-200 pb-2">UI Mockups</h2>
+            <div class="grid lg:grid-cols-2 gap-12">
+
+                <!-- Mockup 1: Dashboard -->
+                <div class="bg-white rounded-xl shadow-2xl overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="font-poppins font-bold text-2xl text-blue-900 mb-4">Dashboard</h3>
+                    </div>
+                    <div class="bg-gray-100 p-6">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-bold text-blue-800">Upcoming Appointment</h4>
+                                <p class="text-gray-600">Dr. Reyes, 10:00 AM</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-bold text-blue-800">Last Checkup</h4>
+                                <p class="text-gray-600">June 15, 2025</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 bg-white p-4 rounded-lg shadow">
+                           <h4 class="font-bold text-blue-800 mb-2">My Records</h4>
+                           <ul class="space-y-2">
+                               <li class="flex justify-between items-center text-gray-700"><span>Lab Results</span><span class="text-blue-600 font-semibold">View</span></li>
+                               <li class="flex justify-between items-center text-gray-700"><span>Prescriptions</span><span class="text-blue-600 font-semibold">View</span></li>
+                               <li class="flex justify-between items-center text-gray-700"><span>Immunizations</span><span class="text-blue-600 font-semibold">View</span></li>
+                           </ul>
+                        </div>
+                    </div>
+                    <img src="https://images.pexels.com/photos/7869455/pexels-photo-7869455.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Smiling+Filipino+Family';" 
+                         alt="A happy, healthy Filipino family." class="w-full h-64 object-cover">
+                </div>
+
+                <!-- Mockup 2: Health Records -->
+                <div class="bg-white rounded-xl shadow-2xl overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="font-poppins font-bold text-2xl text-blue-900 mb-4">Health Records</h3>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <div class="flex items-center p-4 bg-blue-50 rounded-lg mb-4">
+                            <img src="https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+                                 onerror="this.onerror=null;this.src='https://placehold.co/100x100/e2e8f0/4a5568?text=Doctor';"
+                                 alt="A friendly Filipino doctor." class="h-16 w-16 rounded-full object-cover mr-4">
+                            <div>
+                                <h4 class="font-bold text-blue-800">Dr. Maria Santos</h4>
+                                <p class="text-gray-600">Cardiologist</p>
+                                <p class="text-sm text-teal-600">Last Visit: May 20, 2025</p>
+                            </div>
+                        </div>
+                         <div class="flex items-center p-4 bg-blue-50 rounded-lg">
+                            <img src="https://images.pexels.com/photos/3992933/pexels-photo-3992933.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/100x100/e2e8f0/4a5568?text=Doctor';"
+                                 alt="Another friendly Filipino doctor." class="h-16 w-16 rounded-full object-cover mr-4">
+                            <div>
+                                <h4 class="font-bold text-blue-800">Dr. Juan dela Cruz</h4>
+                                <p class="text-gray-600">General Practitioner</p>
+                                <p class="text-sm text-teal-600">Last Visit: April 10, 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                     <img src="https://images.pexels.com/photos/7579831/pexels-photo-7579831.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+                          onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Modern+Clinic';"
+                          alt="Modern and clean clinic setting in the Philippines." class="w-full h-64 object-cover">
+                </div>
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>

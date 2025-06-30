@@ -11,6 +11,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const labResult_routes_1 = __importDefault(require("./routes/labResult.routes"));
+const profile_routes_1 = __importDefault(require("./routes/profile.routes"));
 const error_1 = require("./middleware/error");
 const swagger_1 = __importDefault(require("./config/swagger"));
 // Load environment variables
@@ -39,6 +40,8 @@ app.get('/api/hello', (req, res) => {
 app.use('/api/auth', auth_routes_1.default);
 // Mount lab result routes
 app.use('/api/lab-results', labResult_routes_1.default);
+// Mount profile routes
+app.use('/api/profile', profile_routes_1.default);
 // API Documentation with Swagger UI
 app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.default));
 // Endpoint to get the OpenAPI spec in JSON format
